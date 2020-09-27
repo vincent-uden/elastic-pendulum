@@ -1,7 +1,7 @@
-orig_data = readmatrix("../CSV Data/H/origin_pos.csv");
+orig_data = readmatrix("../CSV Data/I/origin_pos.csv");
 origin = mean(orig_data, 1) + [-24.0504, -10.9529, -15.1941];
 
-paths = dir("../CSV Data/H/H*_pos.csv");
+paths = dir("../CSV Data/I/I*_pos.csv");
 time = 50;
 t0 = 50;
 absolute_errors = zeros(time * 100 + 1, 3, size(paths, 1));
@@ -10,7 +10,7 @@ real_output = zeros(time * 100 + 1, 3, size(paths, 1));
 fake_output = zeros(time * 100 + 1, 3, size(paths, 1));
 
 for p = 1:size(paths, 1)
-    real_data = readmatrix(strcat("../CSV Data/H/", paths(p).name));
+    real_data = readmatrix(strcat("../CSV Data/I/", paths(p).name));
     real_data = real_data - origin;
     real_data = real_data * 0.001;
     real_data = real_data(t0:t0 + time * 100,:);
