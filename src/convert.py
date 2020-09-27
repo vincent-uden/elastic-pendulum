@@ -2,7 +2,7 @@ import re
 import os
 import pathlib
 
-dir_name = "G"
+dir_name = "H"
 
 files = os.listdir("../Unprocessed Data/" + dir_name)
 

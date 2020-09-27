@@ -1,4 +1,4 @@
-vel = readmatrix("../CSV Data/springconst_vel.csv");
+vel = readmatrix("../CSV Data/f2/vel.csv");
 
 diffs = [];
 dt = 0.01;
