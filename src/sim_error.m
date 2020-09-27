@@ -2,7 +2,7 @@ orig_data = readmatrix("../CSV Data/I/origin_pos.csv");
 origin = mean(orig_data, 1) + [-24.0504, -10.9529, -15.1941];
 
 paths = dir("../CSV Data/I/I*_pos.csv");
-time = 50;
+time = 70;
 t0 = 50;
 absolute_errors = zeros(time * 100 + 1, 3, size(paths, 1));
 
