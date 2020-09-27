@@ -1,5 +1,5 @@
-real_data = readmatrix("E/E3_mass.csv");
-orig_data = readmatrix("E/E3_origin.csv");
+real_data = readmatrix("../CSV Data/E/E3_mass.csv");
+orig_data = readmatrix("../CSV Data/E/E3_origin.csv");
 
 origin = mean(orig_data, 1) + [-24.0504, -10.9529, -15.1941];
 
