@@ -10,8 +10,9 @@ real_output = zeros(time * 100 + 1, 3, size(paths, 1));
 fake_output = zeros(time * 100 + 1, 3, size(paths, 1));
 
 hold off
-% Do not include K11, K13, K16, K12, K7, K10, K8
-for p = [1:6,9,11,14:15]
+S = zeros(10,3);
+% Do not include K11, K13, K16, K12, K7, K10, K8, K18, K19, K20
+for p = [1:6,9,14:15,17]
     
     real_data = readmatrix(strcat("../CSV Data/K/", paths(p).name));
     real_data = real_data - origin;
@@ -30,7 +31,19 @@ for p = [1:6,9,11,14:15]
     real_output(:,:,p) = real_data;
     fake_output(:,:,p) = horzcat(y(:,1), y(:,3), y(:,5));
     
+    % ALBOS ÖVNING PÅ ATT SUMMERA SAKER
+    %sum = zeros(5001,3);
+    %
+    %for i = 1:length(paths)
+    %    sum = sum + real_output(:,:,i);
+    %end
+    %
+    %sum = sum./length(paths);
+    %
     
+    
+    
+    S(p,:) = std(real_output(:,:,p));
     
     plot3(real_output(1,1,p), real_output(1,2,p), real_output(1,3,p), 'or');
     plot3(real_output(end,1,p), real_output(end,2,p), real_output(end,3,p), 'og');
