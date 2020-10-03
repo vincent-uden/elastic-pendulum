@@ -49,10 +49,11 @@ for p = [1:6,9,14:15,17]
     real_output_start = real_output(1:10,:,:);
     real_output_end = real_output(end-10:end,:,:);
     
-    std_start(p,:) = std(real_output_start(:,:,p));
-    std_end(p,:) = std(real_output_end(:,:,p));
+    %std_start(p,:) = std(real_output_start(:,:,p));
+    %std_end(p,:) = std(real_output_end(:,:,p)); 
     
-    diff_std = std_end - std_start;
+    %diff_std = std_end - std_start;
+    
     
     plot3(real_output(1,1,p), real_output(1,2,p), real_output(1,3,p), 'or');
     plot3(real_output(end,1,p), real_output(end,2,p), real_output(end,3,p), 'og');
@@ -62,3 +63,29 @@ for p = [1:6,9,14:15,17]
     hold on
     % plot3(fake_output(:,1,p), fake_output(:,2,p), fake_output(:,3,p), 'color', rand(1,3));
 end
+
+% Removes empty measurements
+d = 1;
+for k = 1:21
+    sum = 0;
+    for i = 1:size(real_output,1)
+        for j = 1:size(real_output,2)
+            sum = sum + real_output(i,j,k);
+        end
+    end
+    if sum ~= 0
+        useful_data(:,:,d) = real_output(:,:,k);
+        d = d+1;
+    end
+end
+%Calculates standard deviation along the third axis
+stand_dev = std(useful_data, 0, 3);
+
+stand_dev_start = stand_dev(1:20,:);
+stand_dev_end = stand_dev(end-19:end,3);
+diff_stand_dev = stand_dev_end - stand_dev_start
+
+%Gives negative diff. That would mean that the points at the end are closer
+%together in the end compared to the start 
+
+% OBS: Inget är gjort för hastigheten än
