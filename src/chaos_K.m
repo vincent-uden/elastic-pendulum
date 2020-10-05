@@ -63,17 +63,28 @@ for p = [1,2,4:6,9,15]
     hold on
     % plot3(fake_output(:,1,p), fake_output(:,2,p), fake_output(:,3,p), 'color', rand(1,3));
     %}
+    
     % Pictures for paper
-    clf
+    
     subplot(1,2,1)
+    grid on
+    box on
+    axis([-0.2 0.4 -0.39 -0.34])
+    xlabel('Position i x-led (m)')
+    ylabel('Position i z-led (m)')
     hold on
-    plot(real_output(1:10,1,p),real_output(1:10,3,p))
-    plot(real_output(end-10:end,1,p),real_output(end-10:end,3,p))
-    hold on
+    plot(real_output(1:10,1,p),real_output(1:10,3,p), 'color', 'b')
+    plot(real_output(end-10:end,1,p),real_output(end-10:end,3,p),'color','r')
     subplot(1,2,2)
-    plot(real_output(1:10,2,p),real_output(1:10,3,p))
-    plot(real_output(end-10:end,2,p),real_output(end-10:end,3,p))
+    grid on
+    box on
+    axis([-0.2 0.4 -0.39 -0.34])
+    xlabel('Position i y-led (m)')
+    ylabel('Position i z-led (m)')
+    
+    plot(real_output(1:10,2,p),real_output(1:10,3,p),'color', 'b')
     hold on
+    plot(real_output(end-10:end,2,p),real_output(end-10:end,3,p),'color','r')
    
 end
 
@@ -111,10 +122,5 @@ norm_mean_end = norm(mean(stand_dev_end,1))
 
 mean_vel_start = mean(stand_dev_vel_start,1)
 mean_vel_end = mean(stand_dev_vel_end,1)
-norm_mean_vel_start = norm(mean(stand_dev_vel_start,1))
-norm_mean_vel_end = norm(mean(stand_dev_vel_end,1))
-
-%Gives negative diff. That would mean that the points at the end are closer
-%together in the end compared to the start 
-
-% OBS: Inget är gjort för hastigheten än
+norm_mean_vel_start = norm(mean_vel_start)
+norm_mean_vel_end = norm(mean_vel_end)
