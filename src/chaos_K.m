@@ -62,3 +62,5 @@ for p = [1:6,9,14:15,17]
     hold on
     % plot3(fake_output(:,1,p), fake_output(:,2,p), fake_output(:,3,p), 'color', rand(1,3));
 end
+
+

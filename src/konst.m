@@ -1,4 +1,4 @@
-vel = readmatrix("../CSV Data/f2/vel.csv");
+vel = readmatrix("../CSV Data/spring4/vel.csv");
 
 diffs = [];
 dt = 0.01;
