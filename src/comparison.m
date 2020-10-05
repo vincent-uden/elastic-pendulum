@@ -1,5 +1,5 @@
-real_data = readmatrix("../CSV Data/G/G6(periodisk)_pos.csv");
-orig_data = readmatrix("../CSV Data/G/origin_pos.csv");
+real_data = readmatrix("../CSV Data/K/K10_pos.csv");
+orig_data = readmatrix("../CSV Data/K/origin_pos.csv");
 
 origin = mean(orig_data, 1) + [-24.0504, -10.9529, -15.1941];
 
@@ -22,4 +22,4 @@ plot3(real_data(:,1), real_data(:,2), real_data(:,3));
 hold on
 plot3(y(:,1), y(:,3), y(:,5));
 plot3(y(1,1), y(1,3), y(1,5), 'or');
-axis([-0.2, 0.2, -0.2, 0.2, -1 0, 0.4])
+axis([-0.2, 0.2, -0.2, 0.2, -1, 0.4])

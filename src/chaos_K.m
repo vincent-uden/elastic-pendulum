@@ -14,7 +14,7 @@ S = zeros(10,3);
 std_start = zeros(10,3);
 std_end = zeros(10,3);
 % Do not include K11, K13, K16, K12, K7, K10, K8, K18, K19, K20
-for p = [1:6,9,14:15,17]
+for p = [1,2,4:6,9,15]
     
     real_data = readmatrix(strcat("../CSV Data/K/", paths(p).name));
     real_data = real_data - origin;
@@ -79,11 +79,11 @@ for k = 1:21
     end
 end
 %Calculates standard deviation along the third axis
-stand_dev = std(useful_data, 0, 3);
+stand_dev = std(useful_data, 1, 3);
 
-stand_dev_start = stand_dev(1:20,:);
-stand_dev_end = stand_dev(end-19:end,3);
-diff_stand_dev = stand_dev_end - stand_dev_start
+stand_dev_start = stand_dev(1:20,:)
+stand_dev_end = stand_dev(end-19:end,:)
+%diff_stand_dev = stand_dev_end - stand_dev_start
 
 %Gives negative diff. That would mean that the points at the end are closer
 %together in the end compared to the start 

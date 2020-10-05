@@ -1,7 +1,7 @@
-orig_data = readmatrix("../CSV Data/K/K1_origin_pos.csv");
+orig_data = readmatrix("../CSV Data/L/L1_origin_pos.csv");
 origin = mean(orig_data, 1) + [-24.0504, -10.9529, -15.1941];
 
-paths = dir("../CSV Data/K/K*_pos.csv");
+paths = dir("../CSV Data/L/L*_pos.csv");
 time = 50;
 t0 = 200;
 absolute_errors = zeros(time * 100 + 1, 3, size(paths, 1));
@@ -10,13 +10,9 @@ real_output = zeros(time * 100 + 1, 3, size(paths, 1));
 fake_output = zeros(time * 100 + 1, 3, size(paths, 1));
 
 hold off
-S = zeros(10,3);
-std_start = zeros(10,3);
-std_end = zeros(10,3);
-% Do not include K11, K13, K16, K12, K7, K10, K8, K18, K19, K20
-for p = [1:6,9,14:15,17]
-    
-    real_data = readmatrix(strcat("../CSV Data/K/", paths(p).name));
+% Do not use L11, 
+for p = [1:10,12:20]
+    real_data = readmatrix(strcat("../CSV Data/L/", paths(p).name));
     real_data = real_data - origin;
     real_data = real_data * 0.001;
     real_data = real_data(t0:(t0 + time * 100),:);
@@ -33,32 +29,15 @@ for p = [1:6,9,14:15,17]
     real_output(:,:,p) = real_data;
     fake_output(:,:,p) = horzcat(y(:,1), y(:,3), y(:,5));
     
-    % ALBOS ÖVNING PÅ ATT SUMMERA SAKER
-    %sum = zeros(5001,3);
-    %
-    %for i = 1:length(paths)
-    %    sum = sum + real_output(:,:,i);
-    %end
-    %
-    %sum = sum./length(paths);
-    % SLUT PÅ ALBOS ÖVNING I ATT SUMMERA SAKER
-    
-    % Standard deviation of the curves
-    S(p,:) = std(real_output(:,:,p));
-    
     real_output_start = real_output(1:10,:,:);
     real_output_end = real_output(end-10:end,:,:);
-    
-    %std_start(p,:) = std(real_output_start(:,:,p));
-    %std_end(p,:) = std(real_output_end(:,:,p)); 
-    
-    %diff_std = std_end - std_start;
     
     
     plot3(real_output(1,1,p), real_output(1,2,p), real_output(1,3,p), 'or');
     plot3(real_output(end,1,p), real_output(end,2,p), real_output(end,3,p), 'og');
-    plot3(real_output(1:20,1,p), real_output(1:20,2,p), real_output(1:20,3,p), 'color', rand(1,3));
-    plot3(real_output(end-10:end,1,p), real_output(end-10:end,2,p), real_output(end-10:end,3,p), 'color', rand(1,3));
+    plot3(real_output(1:1000,1,p), real_output(1:1000,2,p), real_output(1:1000,3,p), 'color', rand(1,3));
+    %plot3(real_output(end-10:end,1,p), real_output(end-10:end,2,p), real_output(end-10:end,3,p), 'color', rand(1,3));
+    %tt = 100;
     %plot3(real_output(:,1,p), real_output(:,2,p), real_output(:,3,p), 'color', rand(1,3));
     hold on
     % plot3(fake_output(:,1,p), fake_output(:,2,p), fake_output(:,3,p), 'color', rand(1,3));
@@ -85,7 +64,12 @@ stand_dev_start = stand_dev(1:20,:);
 stand_dev_end = stand_dev(end-19:end,3);
 diff_stand_dev = stand_dev_end - stand_dev_start
 
+summationvec = 0;
+for i = length(diff_stand_dev)
+    summationvec = summationvec + diff_stand_dev(i,:);    
+end
+summationvec
 %Gives negative diff. That would mean that the points at the end are closer
-%together 
+%together in the end compared to the start 
 
-% OBS: Inget är gjort f
+% OBS: Inget är gjort för hastigheten än
