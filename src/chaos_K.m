@@ -9,6 +9,8 @@ absolute_errors = zeros(time * 100 + 1, 3, size(paths, 1));
 real_output = zeros(time * 100 + 1, 3, size(paths, 1));
 fake_output = zeros(time * 100 + 1, 3, size(paths, 1));
 
+clf
+
 hold off
 S = zeros(10,3);
 std_start = zeros(10,3);
@@ -90,6 +92,7 @@ end
 
 % Removes empty measurements
 d = 1;
+useful_data = [];
 for k = 1:21
     sum = 0;
     for i = 1:size(real_output,1)

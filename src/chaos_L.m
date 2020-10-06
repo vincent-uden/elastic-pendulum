@@ -6,12 +6,14 @@ time = 50;
 t0 = 200;
 absolute_errors = zeros(time * 100 + 1, 3, size(paths, 1));
 
+clf
+
 real_output = zeros(time * 100 + 1, 3, size(paths, 1));
 fake_output = zeros(time * 100 + 1, 3, size(paths, 1));
 
 hold off
-% Do not use L11, 
-for p = [1:10,12:20]
+% Do not use L2, L11, L3,L6,L9,L17,L12,L13,L20
+for p = [1,4:5,7:8,10,14:16,18:19]
     real_data = readmatrix(strcat("../CSV Data/L/", paths(p).name));
     real_data = real_data - origin;
     real_data = real_data * 0.001;
@@ -32,19 +34,45 @@ for p = [1:10,12:20]
     real_output_start = real_output(1:10,:,:);
     real_output_end = real_output(end-10:end,:,:);
     
-    
+    %{
     plot3(real_output(1,1,p), real_output(1,2,p), real_output(1,3,p), 'or');
     plot3(real_output(end,1,p), real_output(end,2,p), real_output(end,3,p), 'og');
-    plot3(real_output(1:1000,1,p), real_output(1:1000,2,p), real_output(1:1000,3,p), 'color', rand(1,3));
-    %plot3(real_output(end-10:end,1,p), real_output(end-10:end,2,p), real_output(end-10:end,3,p), 'color', rand(1,3));
-    %tt = 100;
+    plot3(real_output(1:10,1,p), real_output(1:10,2,p), real_output(1:10,3,p), 'color', 'b');
+    hold on
+    plot3(real_output(end-10:end,1,p), real_output(end-10:end,2,p), real_output(end-10:end,3,p), 'color', 'r');
     %plot3(real_output(:,1,p), real_output(:,2,p), real_output(:,3,p), 'color', rand(1,3));
     hold on
     % plot3(fake_output(:,1,p), fake_output(:,2,p), fake_output(:,3,p), 'color', rand(1,3));
+    %}
+    
+    % Pictures for paper
+    
+    subplot(1,2,1)
+    grid on
+    box on
+    axis([-0.15 0.3 -0.44 -0.29])
+    xlabel('Position i x-led (m)')
+    ylabel('Position i z-led (m)')
+    hold on
+    plot(real_output(1:10,1,p),real_output(1:10,3,p), 'color', 'b')
+    plot(real_output(end-10:end,1,p),real_output(end-10:end,3,p),'color','r')
+    subplot(1,2,2)
+    grid on
+    box on
+    axis([-0.15 0.3 -0.44 -0.29])
+    xlabel('Position i y-led (m)')
+    ylabel('Position i z-led (m)')
+    
+    plot(real_output(1:10,2,p),real_output(1:10,3,p),'color', 'b')
+    hold on
+    plot(real_output(end-10:end,2,p),real_output(end-10:end,3,p),'color','r')
+    
+    
 end
 
 % Removes empty measurements
 d = 1;
+useful_data = [];
 for k = 1:21
     sum = 0;
     for i = 1:size(real_output,1)
@@ -57,19 +85,26 @@ for k = 1:21
         d = d+1;
     end
 end
+
 %Calculates standard deviation along the third axis
-stand_dev = std(useful_data, 0, 3);
+stand_dev = std(useful_data,0,3);
 
-stand_dev_start = stand_dev(1:20,:);
-stand_dev_end = stand_dev(end-19:end,3);
-diff_stand_dev = stand_dev_end - stand_dev_start
+stand_dev_start = stand_dev(10:20,:);
+stand_dev_end = stand_dev(end-10:end,:);
+%diff_stand_dev = stand_dev_end - stand_dev_start
 
-summationvec = 0;
-for i = length(diff_stand_dev)
-    summationvec = summationvec + diff_stand_dev(i,:);    
-end
-summationvec
-%Gives negative diff. That would mean that the points at the end are closer
-%together in the end compared to the start 
+vel_start = diff(useful_data(10:20,:,:));
+vel_end = diff(useful_data(end-10:end,:,:));
 
-% OBS: Inget är gjort för hastigheten än
+stand_dev_vel_start = std(vel_start,0,3)./mean(vel_start,3);
+stand_dev_vel_end = std(vel_end,0,3)./mean(vel_end,3);
+
+mean_start = mean(stand_dev_start,1)
+mean_end = mean(stand_dev_end,1)
+norm_mean_start = norm(mean(stand_dev_start,1))
+norm_mean_end = norm(mean(stand_dev_end,1))
+
+mean_vel_start = mean(stand_dev_vel_start,1)
+mean_vel_end = mean(stand_dev_vel_end,1)
+norm_mean_vel_start = norm(mean_vel_start)
+norm_mean_vel_end = norm(mean_vel_end)
