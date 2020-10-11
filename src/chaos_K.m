@@ -72,6 +72,7 @@ for p = [1,2,4:6,9,15]
     grid on
     box on
     axis([-0.2 0.4 -0.39 -0.34])
+    title('(a)')
     xlabel('Position i x-led (m)')
     ylabel('Position i z-led (m)')
     hold on
@@ -81,6 +82,7 @@ for p = [1,2,4:6,9,15]
     grid on
     box on
     axis([-0.2 0.4 -0.39 -0.34])
+    title('(b)')
     xlabel('Position i y-led (m)')
     ylabel('Position i z-led (m)')
     
