@@ -1,5 +1,6 @@
-real_data = readmatrix("../CSV Data/I/I13_pos.csv");
-orig_data = readmatrix("../CSV Data/I/origin_pos.csv");
+
+real_data = readmatrix("../CSV Data/K/K10_pos.csv");
+orig_data = readmatrix("../CSV Data/K/origin_pos.csv");
 
 origin = mean(orig_data, 1) + [-24.0504, -10.9529, -15.1941];
 
@@ -21,9 +22,10 @@ t0 = 1;
 t_end = 5000;
 
 hold off
-plot3(real_data(t0:t_end,1), real_data(t0:t_end,2), real_data(t0:t_end,3));
-grid on
-axis([-0.32, 0.32, -0.32, 0.32, -0.5, 0])
-xlabel("X position (m)");
-ylabel("Y position (m)");
-zlabel("Z position (m)");
+
+plot3(real_data(:,1), real_data(:,2), real_data(:,3));
+hold on
+plot3(y(:,1), y(:,3), y(:,5));
+plot3(y(1,1), y(1,3), y(1,5), 'or');
+axis([-0.2, 0.2, -0.2, 0.2, -1, 0.4])
+
