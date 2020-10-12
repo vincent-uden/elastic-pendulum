@@ -1,4 +1,4 @@
-# elastic-pendulum
+# Mätdata - Experimentell Fysik
 Källkod och mätdata från laboration 3, Kopplade Svängningar.
 
 ## Innehåll
